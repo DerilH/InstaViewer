@@ -1,0 +1,153 @@
+﻿<Window x:Class="InstaWatcher.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:InstaWatcher"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+
+    <Window.Resources>
+
+        <Style TargetType="{x:Type TabItem}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TabItem}">
+                        <Grid>
+                            <Border Name="Spacer" Width="Auto" Height="Auto" Padding="5,0,5,0" BorderBrush="Transparent">
+                                <Border Name="Border"  Width="Auto" BorderBrush="#FF292929" BorderThickness="0">
+                                    <ContentPresenter TextElement.Foreground="White" x:Name="ContentSite" VerticalAlignment="Center" HorizontalAlignment="Center" ContentSource="Header" Margin="12,2,12,2"/>
+                                    <Border.Effect>
+                                        <DropShadowEffect BlurRadius="2" Color="#FF464646" RenderingBias="Quality" ShadowDepth="2"/>
+                                    </Border.Effect>
+                                </Border>
+                            </Border>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="Border" Property="Background" Value="#FF292929" />
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="False">
+                                <Setter TargetName="Border" Property="Background" Value="#FF3E3E40" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <TabControl BorderThickness="0" Background="#FF373737" TabStripPlacement="Top">
+        <TabControl.Resources>
+            <Style TargetType="{x:Type Grid}">
+                <Setter Property="Background" Value="#FF373737"/>
+            </Style>
+        </TabControl.Resources>
+
+        <TabItem Width="auto" Height="auto" Header="Просмотр">
+            <ScrollViewer Width="auto" Height="auto" x:Name="MainViewSV" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" Background="#FF1E1E1E">
+                <local:ImprovedGrid x:Name="MainViewG" Height="Auto" VerticalAlignment="Top" Width="auto" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition x:Name="MarkColumn" Width="50"/>
+                        <ColumnDefinition x:Name="LoginColumn" Width="75"/>
+                        <ColumnDefinition x:Name="AvatarColumn" Width="93"/>
+                        <ColumnDefinition x:Name="DescriptionColumn" Width="190"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <!--#region TopRow-->
+
+                    <Rectangle Grid.Row="0" Grid.Column="0" Fill="#FF484848"/>
+                    <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Оценка" Foreground="White" Height="16" Width="42"/>
+                    <Rectangle Grid.Row="0" Grid.Column="1" Fill="#FF484848"/>
+                    <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Логин" Foreground="White" Height="16" Width="42"/>
+                    <Rectangle Grid.Row="0" Grid.Column="2" Fill="#FF484848"/>
+                    <TextBlock Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Аватар" Foreground="White" Height="16" Width="42"/>
+                    <Rectangle Grid.Row="0" Grid.Column="3" Fill="#FF484848"/>
+                    <TextBlock Grid.Row="0" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Описание" Foreground="White" Height="16" Width="56"/>
+                    <Rectangle Grid.Row="0" Grid.Column="4" Fill="#FF484848"/>
+                    <TextBlock Grid.Row="0" Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Фото" Foreground="White" Height="16" Width="56" TextAlignment="Center"/>
+
+                    <GridSplitter Grid.Column="0" HorizontalAlignment="Right" Width="3" Height="Auto" Background="#FF3C3C3C" />
+                    <GridSplitter Grid.Column="1" HorizontalAlignment="Right" Width="3" Height="Auto" Background="#FF3C3C3C" />
+                    <GridSplitter Grid.Column="2" HorizontalAlignment="Right" Width="3" Height="Auto" Background="#FF3C3C3C" />
+                    <GridSplitter Grid.Column="3" HorizontalAlignment="Right" Width="3" Height="Auto" Background="#FF3C3C3C" />
+                    <!--#endregion-->
+                    <Popup AllowsTransparency="True" PopupAnimation="Fade" IsOpen="True" x:Name="ImagePopup" Placement="Center"></Popup>
+                </local:ImprovedGrid>
+            </ScrollViewer>
+            <!--Button Foreground="White" BorderBrush="#FF352626" Background="#FF757575" HorizontalAlignment="Left" Margin="0,41,0,0" Content="Просмотр" VerticalAlignment="Top" Width="93" Grid.ColumnSpan="2"/-->
+            <!--Button Foreground="White" BorderBrush="#FF352626" Background="#FF757575" HorizontalAlignment="Left" Margin="0,75,0,0" Content="Лучшие" VerticalAlignment="Top" Width="93" Grid.ColumnSpan="2"/-->
+        </TabItem>
+        <TabItem Width="auto" Height="auto" Padding="50,50,50,50" Header="Лучшие">
+            <ScrollViewer x:Name="BestViewSV" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" Background="#FF1E1E1E">
+                <local:ImprovedGrid x:Name="BestViewG" Height="Auto" VerticalAlignment="Top" Width="auto" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="55"/>
+                        <ColumnDefinition Width="76"/>
+                        <ColumnDefinition Width="96"/>
+                        <ColumnDefinition Width="181"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <!--#region TopRow-->
+                    <Rectangle Grid.Row="0" Grid.Column="0" Fill="#FF484848"/>
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Оценка" Foreground="White" Height="16" Width="42"/>
+                    <Rectangle Grid.Row="0" Grid.Column="1" Fill="#FF484848"/>
+                    <TextBlock Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Логин" Foreground="White" Height="16" Width="42"/>
+                    <Rectangle Grid.Row="0" Grid.Column="2" Fill="#FF484848"/>
+                    <TextBlock Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Аватар" Foreground="White" Height="16" Width="42"/>
+                    <Rectangle Grid.Row="0" Grid.Column="3" Fill="#FF484848"/>
+                    <TextBlock Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Описание" Foreground="White" Height="16" Width="56"/>
+                    <Rectangle Grid.Row="0" Grid.Column="3" Fill="#FF484848"/>
+                    <TextBlock Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" Height="16" Width="56" TextAlignment="Center" Text="Описание"/>
+
+                    <GridSplitter Grid.Column="0" HorizontalAlignment="Left" Width="3" Height="Auto" Background="#FF3C3C3C" Margin="50,0,0,0" />
+                    <GridSplitter Grid.Column="1" HorizontalAlignment="Left" Width="3" Height="Auto" Background="#FF3C3C3C" Margin="69,0,0,0" />
+                    <GridSplitter Grid.Column="3" HorizontalAlignment="Left" Width="3" Height="Auto" Background="#FF3C3C3C" />
+                    <GridSplitter Grid.Column="3" HorizontalAlignment="Left" Width="3" Height="Auto" Background="#FF3C3C3C" Margin="187,0,0,0" />
+                    <!--#endregion-->
+                    <Popup AllowsTransparency="True" PopupAnimation="Fade" IsOpen="True" x:Name="SortedViewImagePopup" Placement="Center"></Popup>
+                </local:ImprovedGrid>
+            </ScrollViewer>
+        </TabItem>
+        <TabItem Width="auto" Height="auto" Padding="50,50,50,50" Header="Понравившиеся">
+            <ScrollViewer x:Name="LikedViewSV" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" Background="#FF1E1E1E">
+                <local:ImprovedGrid x:Name="LikedViewG" Height="Auto" VerticalAlignment="Top" Width="auto" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="55"/>
+                        <ColumnDefinition Width="76"/>
+                        <ColumnDefinition Width="96"/>
+                        <ColumnDefinition Width="181"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <!--#region TopRow-->
+                    <Rectangle Grid.Row="0" Grid.Column="0" Fill="#FF484848"/>
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Оценка" Foreground="White" Height="16" Width="42"/>
+                    <Rectangle Grid.Row="0" Grid.Column="1" Fill="#FF484848"/>
+                    <TextBlock Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Логин" Foreground="White" Height="16" Width="42"/>
+                    <Rectangle Grid.Row="0" Grid.Column="2" Fill="#FF484848"/>
+                    <TextBlock Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Аватар" Foreground="White" Height="16" Width="42"/>
+                    <Rectangle Grid.Row="0" Grid.Column="3" Fill="#FF484848"/>
+                    <TextBlock Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Описание" Foreground="White" Height="16" Width="56"/>
+                    <Rectangle Grid.Row="0" Grid.Column="3" Fill="#FF484848"/>
+                    <TextBlock Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" Height="16" Width="56" TextAlignment="Center" Text="Описание"/>
+
+                    <GridSplitter Grid.Column="0" HorizontalAlignment="Left" Width="3" Height="Auto" Background="#FF3C3C3C" Margin="50,0,0,0" />
+                    <GridSplitter Grid.Column="1" HorizontalAlignment="Left" Width="3" Height="Auto" Background="#FF3C3C3C" Margin="69,0,0,0" />
+                    <GridSplitter Grid.Column="3" HorizontalAlignment="Left" Width="3" Height="Auto" Background="#FF3C3C3C" />
+                    <GridSplitter Grid.Column="3" HorizontalAlignment="Left" Width="3" Height="Auto" Background="#FF3C3C3C" Margin="187,0,0,0" />
+                    <!--#endregion-->
+                    <Popup AllowsTransparency="True" PopupAnimation="Fade" IsOpen="True" x:Name="LikedViewImagePopup" Placement="Center"></Popup>
+                </local:ImprovedGrid>
+            </ScrollViewer>
+        </TabItem>
+    </TabControl>
+</Window>
